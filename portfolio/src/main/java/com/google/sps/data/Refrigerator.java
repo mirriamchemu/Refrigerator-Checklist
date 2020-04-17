@@ -24,35 +24,81 @@ import java.util.List;
  */
 public class Refrigerator {
     //refrigerator fields
-    private int id;
-    private String owner;
+    private String id;
+    private User owner;
     private ArrayList<Item> items;
+    private ArrayList<User> users;
 
     //class constructor
-    public Refrigerator(int id, String owner, ArrayList<Item> items) {
+    public Refrigerator(String id, User owner, ArrayList<Item> items, ArrayList<User> users) {
         this.id = id;
         this.owner = owner;
         this.items = items;
+        this.users = users;
+        users.add(owner);
     }
 
     //getter and setter methods
-    public int getID(){
+    public String getID(){
         return id;
     }
 
-    public String getOwner(){
+    public User getOwner(){
         return owner;
     }
 
-    public void setID(int idNumber){
+    public ArrayList<Items> getItems() {
+        return items;
+    }
+
+    public ArrayList<User> getUsers(){
+        return users;
+    }
+
+    public void setID(String idNumber){
         id = idNumber;
     }
 
-    public void setOwner(String newOwner){
+    public void setOwner(User newOwner){
         owner = newOwner;
     }
 
     public void addNewItem(Item newItem){
         items.add(newItem);
+    }
+
+    public void addUser(User newUser){
+        users.add(newUser)
+    }
+
+    //method for getting the expiry date of a single item in the fridge
+    public String getExpiryDate(Item item){
+        String expiry_date = "";
+        for(int i = 0; i < items.size(); i++) {
+            if (items.get(i).equals(item)) {
+                expiry_date = items.get(i).getExpiryDate();
+            }
+        }
+        return expiry_date;
+    }
+
+    //method for getting expiry dates of all the items in the fridge
+    public HashMap<String, String> getItemsExpiryDates() {
+        HashMap<String, String> map = new HashMap<>();
+        for(int i = 0; i < items.size(); i++) {
+            map.put(items.get(i).getName(), items.get(i).getCategory());
+        }
+        return map;
+    }
+
+    //method for getting items of a certain category
+    public ArrayList<Items> getCategoryItems(String category){
+        ArrayList<Items> categoryItems = new ArrayList<>();
+        for(int i = 0; i < items.size(); i++) {
+            if (items.get(i).getCategory().equals(category)) {
+                categoryItems.add(items.get(i));
+            }
+        }
+        return categoryItems;
     }
 }
