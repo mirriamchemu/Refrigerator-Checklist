@@ -41,7 +41,7 @@ public class Item {
     }
 
     //getter and setter methods
-    public int getname(){
+    public int getName(){
         return name;
     }
 
